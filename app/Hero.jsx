@@ -45,53 +45,45 @@ const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-slate-900 to-black p-6">
-      <div className="max-w-lg w-full bg-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-700">
-        <h1 className="text-4xl font-extrabold text-center text-white mb-8">
-          My To-Do List
-        </h1>
+    <div className="w-full min-h-screen overflow-x-hidden bg-gray-900 text-white flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-md bg-gray-800 p-6 rounded-xl shadow-md">
+        <h1 className="text-2xl font-bold text-center mb-6">My To-Do List</h1>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex mb-6 flex-wrap gap-3 items-center"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 mb-6">
           <input
             type="text"
             value={inputname}
             onChange={(e) => setinputname(e.target.value)}
             placeholder="Write a task..."
-            className="flex-1 rounded-xl p-4 text-lg bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="p-3 rounded bg-gray-700 text-white outline-none"
           />
           <button
             type="submit"
-            className="bg-indigo-600 text-white rounded-xl px-6 py-3 font-semibold shadow-lg hover:bg-indigo-700 transition-all duration-300"
+            className="bg-indigo-600 hover:bg-indigo-700 p-3 rounded font-semibold"
           >
             {editIndex !== null ? "Update" : "Add"}
           </button>
         </form>
 
-        {/* Task List */}
         <div>
-          <h2 className="text-xl font-semibold text-gray-200 mb-4">Tasks</h2>
-          <ul className="space-y-4">
+          <h2 className="text-lg font-semibold mb-3">Tasks</h2>
+          <ul className="space-y-3">
             {name.map((naam, index) => (
               <li
                 key={index}
-                className="flex justify-between w-60 md:w-auto items-center p-4 rounded-xl bg-slate-700 shadow-md hover:bg-slate-600 transition-all duration-200"
+                className="flex justify-between items-center bg-gray-700 p-3 rounded-lg"
               >
                 <span
-                  className={`text-lg ${
-                    completed[index]
-                      ? "text-gray-400 line-through"
-                      : "text-white"
+                  className={`break-words max-w-[200px] ${
+                    completed[index] ? "line-through text-gray-400" : ""
                   }`}
                 >
                   {index + 1}. {naam}
                 </span>
-                <div className="flex space-x-2">
+                <div className="flex gap-2">
                   <button
                     onClick={() => del(index)}
-                    className="bg-red-500 text-white rounded-full md:p-2 p-1 hover:bg-red-600 "
+                    className="bg-red-500 hover:bg-red-600 p-2 rounded"
                   >
                     <MdDelete size={16} />
                   </button>
@@ -99,13 +91,13 @@ const Hero = () => {
                     onClick={() => toggleComplete(index)}
                     className={`${
                       completed[index] ? "bg-green-600" : "bg-yellow-500"
-                    } text-white rounded-full md:p-2 p-1 hover:opacity-90`}
+                    } p-2 rounded`}
                   >
                     <BiCheckCircle size={16} />
                   </button>
                   <button
                     onClick={() => editTask(index)}
-                    className="bg-blue-500 text-white rounded-full md:p-2 p-1 hover:bg-blue-600"
+                    className="bg-blue-500 hover:bg-blue-600 p-2 rounded"
                   >
                     <MdModeEdit size={16} />
                   </button>
