@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Hero from "./Hero";
-import Bheem from "./Bheem";
 
 export default function Home() {
   return (
