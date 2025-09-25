@@ -17,10 +17,6 @@ const Hero = () => {
       const updatedTasks = [...name];
       updatedTasks[editIndex] = inputname;
       setName(updatedTasks);
-      setCompleted((prev) => {
-        const newCompleted = [...prev];
-        return newCompleted;
-      });
       setEditIndex(null);
     } else {
       setName([...name, inputname]);
@@ -49,70 +45,75 @@ const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#0f172a]  to-[#334155] p-6">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
-          To-Do App List
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-slate-900 to-black p-6">
+      <div className="max-w-lg w-full bg-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-700">
+        <h1 className="text-4xl font-extrabold text-center text-white mb-8">
+          My To-Do List
         </h1>
-        <form onSubmit={handleSubmit} className="flex mb-6 flex-wrap gap-4">
+
+        <form
+          onSubmit={handleSubmit}
+          className="flex mb-6 flex-wrap gap-3 items-center"
+        >
           <input
             type="text"
             value={inputname}
             onChange={(e) => setinputname(e.target.value)}
-            placeholder="Add or edit a task..."
-            className="flex-1 border border-gray-300 rounded-lg p-3 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Write a task..."
+            className="flex-1 rounded-xl p-4 text-lg bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400"
           />
           <button
             type="submit"
-            className="bg-indigo-600 text-white rounded-lg px-6 py-3 font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="bg-indigo-600 text-white rounded-xl px-6 py-3 font-semibold shadow-lg hover:bg-indigo-700 transition-all duration-300"
           >
-            {editIndex !== null ? "Update" : "Add"} {/* Dynamic button text */}
+            {editIndex !== null ? "Update" : "Add"}
           </button>
         </form>
 
-        <ul className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-700 mb-3">Tasks:</h2>
-          {name.map((naam, index) => (
-            <li
-              key={index}
-              className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 transition-all duration-200"
-            >
-              <span
-                className={`text-lg ${
-                  completed[index]
-                    ? "text-gray-400 line-through"
-                    : "text-gray-800"
-                }`}
+        {/* Task List */}
+        <div>
+          <h2 className="text-xl font-semibold text-gray-200 mb-4">Tasks</h2>
+          <ul className="space-y-4">
+            {name.map((naam, index) => (
+              <li
+                key={index}
+                className="flex justify-between w-60 md:w-auto items-center p-4 rounded-xl bg-slate-700 shadow-md hover:bg-slate-600 transition-all duration-200"
               >
-                {index + 1}. {naam}
-              </span>
-              <div className="flex space-x-3">
-                <button
-                  onClick={() => del(index)}
-                  className="bg-red-600 text-white rounded-full p-2 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                <span
+                  className={`text-lg ${
+                    completed[index]
+                      ? "text-gray-400 line-through"
+                      : "text-white"
+                  }`}
                 >
-                  <MdDelete size={20} />
-                </button>
-                <button
-                  onClick={() => toggleComplete(index)} // Mark the task as complete
-                  className="bg-yellow-600 text-white rounded-full p-2 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                >
-                  {completed[index] ? (
-                    <BiCheckCircle size={20} />
-                  ) : (
-                    <BiCheckCircle size={20} />
-                  )}
-                </button>
-                <button
-                  onClick={() => editTask(index)} // Edit task
-                  className="bg-blue-600 text-white rounded-full p-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <MdModeEdit size={20} />
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+                  {index + 1}. {naam}
+                </span>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => del(index)}
+                    className="bg-red-500 text-white rounded-full md:p-2 p-1 hover:bg-red-600 "
+                  >
+                    <MdDelete size={16} />
+                  </button>
+                  <button
+                    onClick={() => toggleComplete(index)}
+                    className={`${
+                      completed[index] ? "bg-green-600" : "bg-yellow-500"
+                    } text-white rounded-full md:p-2 p-1 hover:opacity-90`}
+                  >
+                    <BiCheckCircle size={16} />
+                  </button>
+                  <button
+                    onClick={() => editTask(index)}
+                    className="bg-blue-500 text-white rounded-full md:p-2 p-1 hover:bg-blue-600"
+                  >
+                    <MdModeEdit size={16} />
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
